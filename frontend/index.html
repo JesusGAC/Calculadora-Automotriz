@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Automotriz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+           select {
+    background-color: rgba(42, 70, 87, 0.8); /* tono oscuro semitransparente */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 8px;
+    backdrop-filter: blur(6px);
+}
+
+select option {
+    background-color: #2a4657;
+    color: white;
+}
+
+select option:hover {
+    background-color: #374151;
+}
+
+select:focus {
+    outline: none;
+    border-color: #4ab3f4;
+    box-shadow: 0 0 5px #4ab3f4;
+}
+
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+    <!-- Header -->
+    <header class="glass-effect p-6 mb-8">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold text-white">Calculadora Automotriz</h1>
+            </div>
+            <div class="text-white text-sm opacity-80">
+                🚗 Tu asistente para el cuidado del vehículo
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-6 pb-12">
+        <!-- Calculator Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Servicio Card -->
+            <div class="glass-effect rounded-2xl p-6 card-hover cursor-pointer" onclick="openCalculator('servicio')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-green-400 text-sm font-medium">MANTENIMIENTO</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Próximo Servicio</h3>
+                <p class="text-gray-300 text-sm">Calcula cuándo necesitas el próximo mantenimiento basado en kilometraje y tiempo</p>
+            </div>
+
+            <!-- Consumo Card -->
+            <div class="glass-effect rounded-2xl p-6 card-hover cursor-pointer" onclick="openCalculator('consumo')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-orange-400 text-sm font-medium">COMBUSTIBLE</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Consumo de Gasolina</h3>
+                <p class="text-gray-300 text-sm">Calcula el rendimiento de combustible y costos de viaje</p>
+            </div>
+
+            <!-- Batería Card -->
+            <div class="glass-effect rounded-2xl p-6 card-hover cursor-pointer" onclick="openCalculator('bateria')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </div>
+                    <span class="text-yellow-400 text-sm font-medium">ELÉCTRICO</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Vida Útil Batería</h3>
+                <p class="text-gray-300 text-sm">Estima la duración restante de tu batería automotriz</p>
+            </div>
+
+            <!-- Tips Card -->
+            <div class="glass-effect rounded-2xl p-6 card-hover cursor-pointer" onclick="openCalculator('tips')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-purple-400 text-sm font-medium">CONSEJOS</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Tips y Consejos</h3>
+                <p class="text-gray-300 text-sm">Recomendaciones para el cuidado y mantenimiento de tu vehículo</p>
+            </div>
+
+            <!-- Autopartes Card -->
+            <div class="glass-effect rounded-2xl p-6 card-hover cursor-pointer" onclick="openCalculator('autopartes')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-blue-400 text-sm font-medium">REPUESTOS</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Buscar Autopartes</h3>
+                <p class="text-gray-300 text-sm">Encuentra repuestos y accesorios para tu vehículo</p>
+            </div>
+
+            <!-- Depreciación Card -->
+            <div class="glass-effect rounded-2xl p-6 card-hover cursor-pointer" onclick="openCalculator('depreciacion')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <span class="text-indigo-400 text-sm font-medium">VALOR</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Depreciación</h3>
+                <p class="text-gray-300 text-sm">Calcula la pérdida de valor de tu vehículo en el tiempo</p>
+            </div>
+        </div>
+
+        <!-- Calculator Modal -->
+        <div id="calculatorModal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm hidden z-50">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="glass-effect rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between p-6 border-b border-white border-opacity-20">
+                        <h2 id="modalTitle" class="text-2xl font-bold text-white">Calculadora</h2>
+                        <button onclick="closeCalculator()" class="w-10 h-10 rounded-full bg-red-500 bg-opacity-20 hover:bg-opacity-30 flex items-center justify-center transition-all">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Modal Content -->
+                    <div id="modalContent" class="p-6">
+                        <!-- Content will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Car Illustration Footer -->
+    <div class="max-w-7xl mx-auto px-6 pb-8">
+        <div class="glass-effect rounded-3xl p-8 text-center">
+            <div class="flex justify-center mb-6">
+                <!-- Car SVG Illustration -->
+                <svg width="300" height="120" viewBox="0 0 300 120" class="drop-shadow-lg">
+                    <!-- Car Body -->
+                    <ellipse cx="150" cy="85" rx="120" ry="25" fill="url(#carGradient)" opacity="0.3"/>
+                    
+                    <!-- Main Car Body -->
+                    <path d="M50 70 Q50 60 60 60 L90 60 Q100 50 120 50 L180 50 Q200 50 210 60 L240 60 Q250 60 250 70 L250 80 Q250 90 240 90 L220 90 Q220 95 215 95 L185 95 Q180 95 180 90 L120 90 Q120 95 115 95 L85 95 Q80 95 80 90 L60 90 Q50 90 50 80 Z" fill="url(#carBodyGradient)"/>
+                    
+                    <!-- Car Windows -->
+                    <path d="M95 60 Q105 52 125 52 L175 52 Q195 52 205 60 L205 65 Q205 68 202 68 L98 68 Q95 68 95 65 Z" fill="url(#windowGradient)"/>
+                    
+                    <!-- Car Lights -->
+                    <circle cx="65" cy="75" r="8" fill="url(#lightGradient)"/>
+                    <circle cx="235" cy="75" r="8" fill="url(#lightGradient)"/>
+                    <circle cx="65" cy="75" r="5" fill="#FFE135" opacity="0.8"/>
+                    <circle cx="235" cy="75" r="5" fill="#FF4444" opacity="0.8"/>
+                    
+                    <!-- Wheels -->
+                    <circle cx="85" cy="90" r="18" fill="url(#wheelGradient)"/>
+                    <circle cx="215" cy="90" r="18" fill="url(#wheelGradient)"/>
+                    <circle cx="85" cy="90" r="12" fill="#2D3748"/>
+                    <circle cx="215" cy="90" r="12" fill="#2D3748"/>
+                    <circle cx="85" cy="90" r="8" fill="url(#rimGradient)"/>
+                    <circle cx="215" cy="90" r="8" fill="url(#rimGradient)"/>
+                    
+                    <!-- Car Details -->
+                    <rect x="140" y="62" width="20" height="3" rx="1" fill="#4A5568" opacity="0.6"/>
+                    <rect x="120" y="75" width="60" height="2" rx="1" fill="#4A5568" opacity="0.4"/>
+                    
+                    <!-- Gradients -->
+                    <defs>
+                        <linearGradient id="carGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1A202C;stop-opacity:0.1"/>
+                            <stop offset="100%" style="stop-color:#1A202C;stop-opacity:0.3"/>
+                        </linearGradient>
+                        <linearGradient id="carBodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4299E1"/>
+                            <stop offset="50%" style="stop-color:#3182CE"/>
+                            <stop offset="100%" style="stop-color:#2B6CB0"/>
+                        </linearGradient>
+                        <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#E2E8F0"/>
+                            <stop offset="100%" style="stop-color:#A0AEC0"/>
+                        </linearGradient>
+                        <linearGradient id="lightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#F7FAFC"/>
+                            <stop offset="100%" style="stop-color:#E2E8F0"/>
+                        </linearGradient>
+                        <linearGradient id="wheelGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4A5568"/>
+                            <stop offset="100%" style="stop-color:#2D3748"/>
+                        </linearGradient>
+                        <linearGradient id="rimGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#E2E8F0"/>
+                            <stop offset="100%" style="stop-color:#CBD5E0"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold text-white">¡Mantén tu vehículo en perfectas condiciones!</h3>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Utiliza nuestras calculadoras especializadas para optimizar el cuidado de tu automóvil, 
+                    ahorrar en combustible y mantener su valor a lo largo del tiempo.
+                </p>
+            </div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute top-4 left-8 w-2 h-2 bg-blue-400 rounded-full opacity-60 animate-pulse"></div>
+                <div class="absolute top-12 right-12 w-1 h-1 bg-purple-400 rounded-full opacity-80 animate-pulse" style="animation-delay: 0.5s;"></div>
+                <div class="absolute bottom-8 left-16 w-1.5 h-1.5 bg-green-400 rounded-full opacity-70 animate-pulse" style="animation-delay: 1s;"></div>
+                <div class="absolute bottom-16 right-8 w-1 h-1 bg-yellow-400 rounded-full opacity-60 animate-pulse" style="animation-delay: 1.5s;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openCalculator(type) {
+            const modal = document.getElementById('calculatorModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            modal.classList.remove('hidden');
+            
+            switch(type) {
+                case 'servicio':
+                    title.textContent = 'Calculadora de Próximo Servicio';
+                    content.innerHTML = getServicioContent();
+                    
+                    if (typeof setupServicioHelpers === 'function') setupServicioHelpers();
+                    break;
+                case 'consumo':
+                    title.textContent = 'Calculadora de Consumo de Gasolina';
+                    content.innerHTML = getConsumoContent();
+                    
+                    if (typeof setupConsumoHelpers === 'function') setupConsumoHelpers();
+                    break;
+                case 'bateria':
+                    title.textContent = 'Calculadora de Vida Útil de Batería';
+                    content.innerHTML = getBateriaContent();
+                    
+                    if (typeof setupBateriaHelpers === 'function') setupBateriaHelpers();
+                    break;
+                case 'tips':
+                    title.textContent = 'Tips y Consejos Automotrices';
+                    content.innerHTML = getTipsContent();
+                    break;
+                case 'autopartes':
+                    title.textContent = 'Buscador de Autopartes';
+                    content.innerHTML = getAutopartesContent();
+                    
+                    if (typeof setupAutopartesHelpers === 'function') setupAutopartesHelpers();
+                    break;
+                case 'depreciacion':
+                    title.textContent = 'Calculadora de Depreciación';
+                    content.innerHTML = getDepreciacionContent();
+                    
+                    if (typeof setupDepreciacionHelpers === 'function') setupDepreciacionHelpers();
+                    break;
+            }
+        }
+
+        function closeCalculator() {
+            document.getElementById('calculatorModal').classList.add('hidden');
+        }
+
+        function getServicioContent() {
+            return `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-white mb-4">Datos del Vehículo</h3>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Kilometraje Actual</label>
+                            <input id="svc-current-km" type="number" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ej: 45000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Último Servicio (km)</label>
+                            <input id="svc-last-service-km" type="number" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ej: 40000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Intervalo de Servicio (km)</label>
+                            <select id="svc-interval-km" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option value="5000">5,000 km</option>
+                                <option value="10000">10,000 km</option>
+                                <option value="15000">15,000 km</option>
+                                <option value="20000">20,000 km</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Promedio km/mes</label>
+                            <input id="svc-avg-km-month" type="number" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ej: 1500">
+                        </div>
+                        
+                        <button onclick="calcServicio()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all">
+                            Calcular Próximo Servicio
+                        </button>
+                        <div id="svc-warnings" class="text-yellow-300 text-sm"></div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-5 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-4">Resultado</h3>
+                        <div class="space-y-4">
+                            <div class="text-center p-4 bg-green-500 bg-opacity-20 rounded-lg">
+                                <div id="svc-km-remaining" class="text-2xl font-bold text-green-400">-- km</div>
+                                <div class="text-sm text-gray-300">Próximo servicio en</div>
+                            </div>
+                            <div class="text-center p-4 bg-blue-500 bg-opacity-20 rounded-lg">
+                                <div id="svc-days-remaining" class="text-2xl font-bold text-blue-400">-- días</div>
+                                <div class="text-sm text-gray-300">Tiempo estimado</div>
+                                <div id="svc-date-estimated" class="text-xs text-gray-400 mt-1"></div>
+                            </div>
+                            <div id="svc-message" class="text-center text-gray-300 text-sm"></div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-yellow-500 bg-opacity-20 rounded-lg">
+                            <h4 class="font-semibold text-yellow-400 mb-2">💡 Recordatorio</h4>
+                            <p class="text-sm text-gray-300">No olvides revisar también el tiempo transcurrido desde el último servicio, algunos componentes se deterioran por tiempo independientemente del kilometraje.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getConsumoContent() {
+            return `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-white mb-4">Datos de Consumo</h3>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Distancia Recorrida (km)</label>
+                            <input id="cons-distance" type="number" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Ej: 500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Litros Consumidos</label>
+                            <input id="cons-liters" type="number" step="0.1" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Ej: 45.5">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Precio por Litro ($)</label>
+                            <input id="cons-price" type="number" step="0.01" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Ej: 24.50">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Tipo de Conducción</label>
+                            <select id="cons-driving-type" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <option value="ciudad">Ciudad</option>
+                                <option value="carretera">Carretera</option>
+                                <option value="mixto">Mixto</option>
+                            </select>
+<p class="mt-1 text-xs text-gray-300">Si no tienes datos: Ciudad ≈ 10 km/L, Carretera ≈ 15 km/L, Mixto ≈ 12 km/L.</p>
+                        </div>
+                        
+                        <button onclick="calcConsumo()" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-all">
+                            Calcular Rendimiento
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-5 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-4">Análisis de Consumo</h3>
+                        <div class="space-y-4">
+                            <div class="text-center p-4 bg-orange-500 bg-opacity-20 rounded-lg">
+                                <div id="cons-kmpl" class="text-2xl font-bold text-orange-400">-- km/L</div>
+                                <div class="text-sm text-gray-300">Rendimiento actual</div>
+                            </div>
+                            <div class="text-center p-4 bg-red-500 bg-opacity-20 rounded-lg">
+                                <div id="cons-cost-per-km" class="text-2xl font-bold text-red-400">$-- /km</div>
+                                <div class="text-sm text-gray-300">Costo por kilómetro</div>
+                            </div>
+                            <div class="text-center p-4 bg-blue-500 bg-opacity-20 rounded-lg">
+                                <div id="cons-total" class="text-2xl font-bold text-blue-400">$--</div>
+                                <div class="text-sm text-gray-300">Costo total del viaje</div>
+                            </div>
+                            <div class="text-center p-4 bg-green-500 bg-opacity-20 rounded-lg">
+                                <div id="cons-co2" class="text-2xl font-bold text-green-400">-- kg CO₂</div>
+                                <div class="text-sm text-gray-300">Emisiones aproximadas</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-green-500 bg-opacity-20 rounded-lg">
+                            <h4 class="font-semibold text-green-400 mb-2">🌱 Tip Ecológico</h4>
+                            <p id="cons-rating" class="text-sm text-gray-300">Mantén una velocidad constante y evita aceleraciones bruscas para mejorar el rendimiento de combustible.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getBateriaContent() {
+            return `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-white mb-4">Estado de la Batería</h3>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Fecha de Instalación</label>
+                            <input id="bat-install" type="date" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Tipo de Batería</label>
+                            <select id="bat-type" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                <option value="convencional">Convencional (2-3 años)</option>
+                                <option value="agm">AGM (4-5 años)</option>
+                                <option value="gel">Gel (5-6 años)</option>
+                                <option value="litio">Litio (8-10 años)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Uso del Vehículo</label>
+                            <select id="bat-usage" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                <option value="diario">Uso diario</option>
+                                <option value="ocasional">Uso ocasional</option>
+                                <option value="esporadico">Uso esporádico</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Clima Predominante</label>
+                            <select id="bat-climate" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                <option value="templado">Templado</option>
+                                <option value="calido">Cálido</option>
+                                <option value="frio">Frío</option>
+                                <option value="extremo">Extremo</option>
+                            </select>
+                        </div>
+                        
+                        <button onclick="evaluateBateria()" class="w-full bg-gradient-to-r from-yellow-500 to-amber-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-yellow-600 hover:to-amber-700 transition-all">
+                            Evaluar Batería
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-5 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-4">Diagnóstico</h3>
+                        <div class="space-y-4">
+                            <div class="text-center p-4 bg-yellow-500 bg-opacity-20 rounded-lg">
+                                <div id="bat-percent" class="text-2xl font-bold text-yellow-400">--%</div>
+                                <div class="text-sm text-gray-300">Vida útil restante</div>
+                            </div>
+                            <div class="text-center p-4 bg-green-500 bg-opacity-20 rounded-lg">
+                                <div id="bat-months-left" class="text-2xl font-bold text-green-400">-- meses</div>
+                                <div class="text-sm text-gray-300">Tiempo estimado restante</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 space-y-3">
+                            <div class="p-3 bg-blue-500 bg-opacity-20 rounded-lg">
+                                <h4 class="font-semibold text-blue-400 text-sm">🔋 Estado Actual</h4>
+                                <p id="bat-status" class="text-xs text-gray-300 mt-1">La evaluación se mostrará aquí</p>
+                            </div>
+                            
+                            <div class="p-3 bg-purple-500 bg-opacity-20 rounded-lg">
+                                <h4 class="font-semibold text-purple-400 text-sm">⚡ Recomendaciones</h4>
+                                <ul id="bat-reco" class="text-xs text-gray-300 mt-1 space-y-1">
+                                    <li>• Revisa los terminales regularmente</li>
+                                    <li>• Evita descargas profundas</li>
+                                    <li>• Mantén limpia la batería</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getTipsContent() {
+            return `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-white mb-4">Categorías de Tips</h3>
+                        
+                        <div class="space-y-3">
+                            <button class="w-full text-left p-4 bg-gradient-to-r from-green-500 to-emerald-600 bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all" onclick="showTips('mantenimiento')">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-white">Mantenimiento Preventivo</h4>
+                                        <p class="text-sm text-gray-300">Cuidados regulares para tu vehículo</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="w-full text-left p-4 bg-gradient-to-r from-blue-500 to-cyan-600 bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all" onclick="showTips('conduccion')">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-white">Conducción Eficiente</h4>
+                                        <p class="text-sm text-gray-300">Técnicas para ahorrar combustible</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="w-full text-left p-4 bg-gradient-to-r from-purple-500 to-pink-600 bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all" onclick="showTips('seguridad')">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-white">Seguridad Vial</h4>
+                                        <p class="text-sm text-gray-300">Consejos para conducir seguro</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="w-full text-left p-4 bg-gradient-to-r from-orange-500 to-red-600 bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all" onclick="showTips('emergencia')">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-white">Situaciones de Emergencia</h4>
+                                        <p class="text-sm text-gray-300">Qué hacer en caso de problemas</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-5 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-4">Tips Destacados</h3>
+                        <div id="tipsContent" class="space-y-4">
+                            <div class="p-4 bg-green-500 bg-opacity-20 rounded-lg">
+                                <h4 class="font-semibold text-green-400 mb-2">🔧 Mantenimiento Básico</h4>
+                                <p class="text-sm text-gray-300">Revisa el nivel de aceite cada 1000 km y cámbialo según las especificaciones del fabricante.</p>
+                            </div>
+                            
+                            <div class="p-4 bg-blue-500 bg-opacity-20 rounded-lg">
+                                <h4 class="font-semibold text-blue-400 mb-2">⛽ Ahorro de Combustible</h4>
+                                <p class="text-sm text-gray-300">Mantén una velocidad constante entre 80-90 km/h en carretera para optimizar el consumo.</p>
+                            </div>
+                            
+                            <div class="p-4 bg-purple-500 bg-opacity-20 rounded-lg">
+                                <h4 class="font-semibold text-purple-400 mb-2">🛡️ Seguridad</h4>
+                                <p class="text-sm text-gray-300">Revisa la presión de las llantas mensualmente. Una presión incorrecta afecta el manejo y el consumo.</p>
+                            </div>
+                            
+                            <div class="p-4 bg-orange-500 bg-opacity-20 rounded-lg">
+                                <h4 class="font-semibold text-orange-400 mb-2">🚨 Emergencias</h4>
+                                <p class="text-sm text-gray-300">Siempre lleva un kit de emergencia: cables pasa corriente, llanta de refacción y herramientas básicas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getAutopartesContent() {
+            return `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-white mb-4">Buscar Repuestos</h3>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Marca del Vehículo</label>
+                            <select id="parts-brand" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Selecciona una marca</option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Nissan">Nissan</option>
+                                <option value="Honda">Honda</option>
+                                <option value="Mazda">Mazda</option>
+                                <option value="Hyundai">Hyundai</option>
+                                <option value="Kia">Kia</option>
+                                <option value="Volkswagen">Volkswagen</option>
+                                <option value="Chevrolet">Chevrolet</option>
+                                <option value="Ford">Ford</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Modelo</label>
+                            <input id="parts-model" type="text" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: Corolla, Sentra, Civic">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Año</label>
+                            <input id="parts-year" type="number" min="1990" max="2099" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: 2020">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Tipo de Repuesto</label>
+                            <select id="parts-type" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Selecciona categoría</option>
+                                <option value="motor">Motor</option>
+                                <option value="frenos">Sistema de Frenos</option>
+                                <option value="suspension">Suspensión</option>
+                                <option value="electrico">Sistema Eléctrico</option>
+                                <option value="transmision">Transmisión</option>
+                                <option value="carroceria">Carrocería</option>
+                                <option value="filtros">Filtros</option>
+                                <option value="llantas">Llantas</option>
+                            </select>
+                        </div>
+                        
+                        <button class="w-full bg-gradient-to-r from-blue-500 to-cyan-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-700 transition-all" onclick="searchParts()">
+                            Buscar Repuestos
+                        </button>
+
+                        <div id="partsResults" class="mt-4 space-y-3"></div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-5 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-4">Sitios Recomendados</h3>
+                        <div class="space-y-3">
+                            <button class="w-full text-left p-3 bg-blue-500 bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all" onclick="openPartsWebsite('mercadolibre')">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold text-white">MercadoLibre</h4>
+                                        <p class="text-sm text-gray-300">Amplio catálogo de autopartes</p>
+                                    </div>
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                            
+                            <button class="w-full text-left p-3 bg-green-500 bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all" onclick="openPartsWebsite('autozone')">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold text-white">AutoZone</h4>
+                                        <p class="text-sm text-gray-300">Especialistas en autopartes</p>
+                                    </div>
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                            
+                            <button class="w-full text-left p-3 bg-purple-500 bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all" onclick="openPartsWebsite('refaccionarias')">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold text-white">Refaccionarias Locales</h4>
+                                        <p class="text-sm text-gray-300">Encuentra tiendas cerca de ti</p>
+                                    </div>
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-yellow-500 bg-opacity-20 rounded-lg">
+                            <h4 class="font-semibold text-yellow-400 mb-2">💡 Consejos de Compra</h4>
+                            <ul class="text-sm text-gray-300 space-y-1">
+                                <li>• Verifica la compatibilidad con tu vehículo</li>
+                                <li>• Compara precios en diferentes proveedores</li>
+                                <li>• Revisa la garantía del producto</li>
+                                <li>• Considera repuestos originales vs genéricos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getDepreciacionContent() {
+            return `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-white mb-4">Datos del Vehículo</h3>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Precio de Compra ($)</label>
+                            <input id="dep-price" type="number" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ej: 250000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Año de Compra</label>
+                            <input id="dep-year" type="number" min="1990" max="2099" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ej: 2020">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Kilometraje Actual</label>
+                            <input id="dep-km" type="number" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ej: 45000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Estado del Vehículo</label>
+                            <select id="dep-condition" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="excelente">Excelente</option>
+                                <option value="bueno">Bueno</option>
+                                <option value="regular">Regular</option>
+                                <option value="malo">Necesita reparaciones</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Marca del Vehículo</label>
+                            <select id="dep-brand" class="w-full px-4 py-3 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="premium">Premium (BMW, Mercedes, Audi)</option>
+                                <option value="japonesa">Japonesa (Toyota, Honda, Nissan)</option>
+                                <option value="americana">Americana (Ford, Chevrolet)</option>
+                                <option value="europea">Europea (Volkswagen, Peugeot)</option>
+                                <option value="coreana">Coreana (Hyundai, Kia)</option>
+                            </select>
+                        </div>
+                        
+                        <button onclick="calcDepreciacion()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all">
+                            Calcular Depreciación
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-5 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-4">Análisis de Valor</h3>
+                        <div class="space-y-4">
+                            <div class="text-center p-4 bg-indigo-500 bg-opacity-20 rounded-lg">
+                                <div id="dep-value" class="text-2xl font-bold text-indigo-400">$--</div>
+                                <div class="text-sm text-gray-300">Valor actual estimado</div>
+                            </div>
+                            <div class="text-center p-4 bg-red-500 bg-opacity-20 rounded-lg">
+                                <div id="dep-percent" class="text-2xl font-bold text-red-400">--%</div>
+                                <div class="text-sm text-gray-300">Depreciación total</div>
+                            </div>
+                            <div class="text-center p-4 bg-orange-500 bg-opacity-20 rounded-lg">
+                                <div id="dep-annual" class="text-2xl font-bold text-orange-400">$-- /año</div>
+                                <div class="text-sm text-gray-300">Pérdida anual promedio</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 space-y-3">
+                            <div class="p-3 bg-blue-500 bg-opacity-20 rounded-lg">
+                                <h4 class="font-semibold text-blue-400 text-sm">📊 Factores de Depreciación</h4>
+                                <ul id="dep-breakdown" class="text-xs text-gray-300 mt-1 space-y-1">
+                                    <li>• Edad del vehículo: Mayor impacto</li>
+                                    <li>• Kilometraje: Impacto moderado</li>
+                                    <li>• Estado: Impacto variable</li>
+                                    <li>• Marca: Retención de valor</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-3 bg-green-500 bg-opacity-20 rounded-lg">
+                                <h4 class="font-semibold text-green-400 text-sm">💰 Consejos para Mantener Valor</h4>
+                                <ul class="text-xs text-gray-300 mt-1 space-y-1">
+                                    <li>• Mantén el historial de servicios</li>
+                                    <li>• Evita modificaciones extremas</li>
+                                    <li>• Cuida la apariencia exterior</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showTips(category) {
+            // Implementado en assets/app.js
+            console.log('Mostrando tips de:', category);
+        }
+
+        function searchParts() {
+            // Implementado en assets/app.js
+            console.log('Buscando repuestos...');
+        }
+
+        function openPartsWebsite(site) {
+            // Esta función abriría los sitios web de autopartes en una nueva pestaña
+            const urls = {
+                'mercadolibre': 'https://listado.mercadolibre.com.mx/autopartes',
+                'autozone': 'https://www.autozone.com.mx/',
+                'refaccionarias': 'https://www.google.com/maps/search/refaccionarias+cerca+de+mi'
+            };
+            
+            if (urls[site]) {
+                window.open(urls[site], '_blank', 'noopener,noreferrer');
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('calculatorModal');
+            if (modal && !modal.classList.contains('hidden') && e.target === modal) {
+                closeCalculator();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeCalculator();
+            }
+        });
+    </script>
+
+    <!-- Load our frontend logic AFTER inline script to override stubs -->
+    <script src="assets/app.js"></script>
+
+
+<script>
+/* ========= Helpers UI: peras y manzanas + mini‑calculadoras ========= */
+
+function insertHelpAfter(inputId, { summary = "¿No tienes este dato? Te ayudamos", html = "", onMount = null }) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const wrap = document.createElement("div");
+  wrap.className = "mt-2";
+
+  const details = document.createElement("details");
+  details.className = "p-3 bg-white bg-opacity-5 rounded-lg";
+  const sum = document.createElement("summary");
+  sum.className = "cursor-pointer text-sm text-blue-300 hover:text-blue-200";
+  sum.textContent = summary;
+
+  const body = document.createElement("div");
+  body.className = "mt-3 text-sm text-gray-200 space-y-3";
+  body.innerHTML = html;
+
+  details.appendChild(sum);
+  details.appendChild(body);
+  wrap.appendChild(details);
+  input.insertAdjacentElement("afterend", wrap);
+
+  if (typeof onMount === "function") onMount(body, input);
+}
+
+function parseNum(v) {
+  const x = parseFloat(String(v).replace(/,/g, "").trim());
+  return Number.isFinite(x) ? x : NaN;
+}
+
+/* ---------------- Consumo ---------------- */
+function setupConsumoHelpers() {
+  // Microcopy: Distancia
+  insertHelpAfter("cons-distance", {
+    summary: "¿Qué es la distancia y cómo la saco?",
+    html: `
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>Qué es:</strong> km manejados entre llenar el tanque y volver a llenar.</li>
+        <li><strong>Cómo obtenerlo:</strong> reinicia el <em>Trip A/B</em> al llenar; al volver a llenar, usa ese número.</li>
+        <li><strong>Sin trip:</strong> distancia = odómetro final − odómetro inicial.</li>
+        <li><strong>Ejemplo:</strong> 52,460 − 52,340 = <strong>120 km</strong>.</li>
+      </ul>
+    `
+  });
+
+  // Distancia desde odómetros (mini‑calc)
+  insertHelpAfter("cons-distance", {
+    summary: "No sé mi distancia • Calcular desde odómetros",
+    html: `
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <label class="block">Odómetro inicial
+          <input id="h-odo-start" type="number" step="0.1" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10">
+        </label>
+        <label class="block">Odómetro final
+          <input id="h-odo-end" type="number" step="0.1" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10">
+        </label>
+        <button id="h-odo-apply" class="self-end p-2 rounded bg-blue-600 hover:bg-blue-500">Calcular y usar</button>
+      </div>
+      <p class="text-xs text-gray-300">Fórmula: distancia = odómetro final − odómetro inicial</p>
+    `,
+    onMount: (root, targetInput) => {
+      root.querySelector("#h-odo-apply").addEventListener("click", () => {
+        const a = parseNum(root.querySelector("#h-odo-start").value);
+        const b = parseNum(root.querySelector("#h-odo-end").value);
+        if (!Number.isFinite(a) || !Number.isFinite(b)) return alert("Completa ambos odómetros.");
+        const d = b - a;
+        if (d <= 0) return alert("La distancia debe ser positiva.");
+        targetInput.value = d.toFixed(1);
+      });
+    }
+  });
+
+  // Microcopy: Litros
+  insertHelpAfter("cons-liters", {
+    summary: "¿Qué son los litros y cómo los estimo?",
+    html: `
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>Qué es:</strong> lo que cargaste al volver a llenar (ticket: columna “L”).</li>
+        <li><strong>Sin ticket pero sabes total y $/L:</strong> litros = total ÷ precio por litro.</li>
+        <li><strong>Sin ticket ni $/L:</strong> <em>aprox.</em> litros ≈ capacidad del tanque × (nivel después − nivel antes).</li>
+        <li><strong>Ejemplo:</strong> 50 L × (1.0 − 0.25) = <strong>37.5 L</strong>.</li>
+      </ul>
+    `
+  });
+
+  // Litros desde ticket (mini‑calc)
+  insertHelpAfter("cons-liters", {
+    summary: "No sé los litros • Calcular desde ticket",
+    html: `
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <label class="block">Total pagado ($)
+          <input id="h-tk-total" type="number" step="0.01" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10" placeholder="560">
+        </label>
+        <label class="block">Precio por litro ($/L)
+          <input id="h-tk-ppl" type="number" step="0.01" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10" placeholder="28">
+        </label>
+        <button id="h-tk-apply" class="self-end p-2 rounded bg-blue-600 hover:bg-blue-500">Calcular y usar</button>
+      </div>
+      <p class="text-xs text-gray-300">Fórmula: litros = total ÷ precio por litro</p>
+    `,
+    onMount: (root, targetInput) => {
+      root.querySelector("#h-tk-apply").addEventListener("click", () => {
+        const total = parseNum(root.querySelector("#h-tk-total").value);
+        const ppl = parseNum(root.querySelector("#h-tk-ppl").value);
+        if (!(total > 0 && ppl > 0)) return alert("Ingresa total y $/L mayores a 0.");
+        const L = total / ppl;
+        targetInput.value = L.toFixed(2);
+      });
+    }
+  });
+
+  // Litros estimados por tanque (mini‑calc)
+  insertHelpAfter("cons-liters", {
+    summary: "Sin ticket • Estimar por tanque y medidor",
+    html: `
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <label class="block">Capacidad del tanque (L)
+          <input id="h-cap-tank" type="number" step="0.1" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10" placeholder="50">
+        </label>
+        <label class="block">Nivel <em>antes</em>
+          <select id="h-level-before" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10">
+            <option value="1">Lleno (1.0)</option>
+            <option value="0.75">3/4 (0.75)</option>
+            <option value="0.5">1/2 (0.5)</option>
+            <option value="0.25">1/4 (0.25)</option>
+            <option value="0">Vacío (0.0)</option>
+          </select>
+        </label>
+        <label class="block">Nivel <em>después</em>
+          <select id="h-level-after" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10">
+            <option value="1">Lleno (1.0)</option>
+            <option value="0.75">3/4 (0.75)</option>
+            <option value="0.5">1/2 (0.5)</option>
+            <option value="0.25">1/4 (0.25)</option>
+            <option value="0">Vacío (0.0)</option>
+          </select>
+        </label>
+        <button id="h-tank-apply" class="self-end p-2 rounded bg-blue-600 hover:bg-blue-500">Calcular y usar</button>
+      </div>
+      <p class="text-xs text-gray-300">Aproximación: litros ≈ capacidad × (nivel después − nivel antes)</p>
+    `,
+    onMount: (root, targetInput) => {
+      root.querySelector("#h-tank-apply").addEventListener("click", () => {
+        const cap = parseNum(root.querySelector("#h-cap-tank").value);
+        const before = parseNum(root.querySelector("#h-level-before").value);
+        const after = parseNum(root.querySelector("#h-level-after").value);
+        if (!(cap > 0)) return alert("Ingresa la capacidad del tanque (>0).");
+        const delta = Math.max(0, after - before);
+        const L = cap * delta;
+        if (!(L > 0)) return alert("El nivel después debe ser mayor que el nivel antes.");
+        targetInput.value = L.toFixed(2);
+      });
+    }
+  });
+
+  // Microcopy: Precio por litro
+  insertHelpAfter("cons-price", {
+    summary: "¿Qué es el precio por litro y cómo lo saco?",
+    html: `
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>Qué es:</strong> costo de 1 L (aparece en la bomba y el ticket).</li>
+        <li><strong>Sin dato pero tienes ticket:</strong> $/L = total ÷ litros. Ej: $560 ÷ 20 L = <strong>$28/L</strong>.</li>
+      </ul>
+    `
+  });
+
+  // Precio por litro desde ticket (mini‑calc)
+  insertHelpAfter("cons-price", {
+    summary: "No sé el $/L • Calcular desde ticket",
+    html: `
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <label class="block">Total pagado ($)
+          <input id="h-ppl-total" type="number" step="0.01" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10" placeholder="560">
+        </label>
+        <label class="block">Litros
+          <input id="h-ppl-litros" type="number" step="0.01" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10" placeholder="20">
+        </label>
+        <button id="h-ppl-apply" class="self-end p-2 rounded bg-blue-600 hover:bg-blue-500">Calcular y usar</button>
+      </div>
+      <p class="text-xs text-gray-300">Fórmula: $/L = total ÷ litros</p>
+    `,
+    onMount: (root, targetInput) => {
+      root.querySelector("#h-ppl-apply").addEventListener("click", () => {
+        const total = parseNum(root.querySelector("#h-ppl-total").value);
+        const L = parseNum(root.querySelector("#h-ppl-litros").value);
+        if (!(total > 0 && L > 0)) return alert("Ingresa total y litros (>0).");
+        targetInput.value = (total / L).toFixed(2);
+      });
+    }
+  });
+
+  // Microcopy: Tipo de conducción
+  insertHelpAfter("cons-driving-type", {
+    summary: "¿Para qué sirve el tipo de conducción?",
+    html: `
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>Uso:</strong> si no tienes datos reales de consumo, aplicamos valores típicos.</li>
+        <li>Ciudad ≈ <strong>10 km/L</strong>, Carretera ≈ <strong>15 km/L</strong>, Mixto ≈ <strong>12 km/L</strong>.</li>
+        <li>Con A/C fuerte o mucho peso, el consumo real suele bajar.</li>
+      </ul>
+    `
+  });
+}
+
+/* ---------------- Servicio ---------------- */
+function setupServicioHelpers() {
+  // Microcopy básicos
+  insertHelpAfter("svc-current-km", {
+    summary: "¿Qué pongo en Kilometraje Actual?",
+    html: `<p><strong>El número que ves hoy</strong> en el odómetro. Si eres segundo dueño y no estás seguro, usa el valor del tablero.</p>`
+  });
+  insertHelpAfter("svc-last-service-km", {
+    summary: "¿Y el del último servicio?",
+    html: `<p>Está en el <strong>sticker del parabrisas</strong> o en la factura del taller. Si no lo sabes, estima y ajústalo luego.</p>`
+  });
+  insertHelpAfter("svc-interval-km", {
+    summary: "¿Qué es el intervalo de servicio?",
+    html: `<p>Es cada cuántos km recomienda el manual (p. ej. <strong>10,000 km</strong>). Si haces <em>uso severo</em> usa <strong>5,000 km</strong>.</p>`
+  });
+  insertHelpAfter("svc-avg-km-month", {
+    summary: "¿Cómo saco mi promedio km/mes?",
+    html: `<p><strong>Rápido:</strong> (km actual − km último servicio) ÷ meses. Debajo tienes una mini‑calculadora.</p>`
+  });
+
+  // Promedio km/mes desde último servicio (mini‑calc)
+  insertHelpAfter("svc-avg-km-month", {
+    summary: "No sé mi promedio • Calcular desde último servicio",
+    html: `
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <label class="block">Km actual (odómetro)
+          <input id="h-svc-cur" type="number" step="1" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10">
+        </label>
+        <label class="block">Km al último servicio
+          <input id="h-svc-last" type="number" step="1" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10">
+        </label>
+        <label class="block">Meses desde entonces
+          <input id="h-svc-months" type="number" step="1" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10" placeholder="8">
+        </label>
+        <button id="h-svc-apply" class="self-end p-2 rounded bg-blue-600 hover:bg-blue-500">Calcular y usar</button>
+      </div>
+      <p class="text-xs text-gray-300">Fórmula: promedio = (km actual − km último) ÷ meses</p>
+    `,
+    onMount: (root, targetInput) => {
+      const curMain = document.getElementById("svc-current-km");
+      const lastMain = document.getElementById("svc-last-service-km");
+      if (curMain) root.querySelector("#h-svc-cur").value = curMain.value || "";
+      if (lastMain) root.querySelector("#h-svc-last").value = lastMain.value || "";
+
+      root.querySelector("#h-svc-apply").addEventListener("click", () => {
+        const cur = parseNum(root.querySelector("#h-svc-cur").value);
+        const last = parseNum(root.querySelector("#h-svc-last").value);
+        const months = parseNum(root.querySelector("#h-svc-months").value);
+        if (!(cur >= 0 && last >= 0 && months > 0)) return alert("Verifica los tres campos (meses > 0).");
+        if (cur < last) return alert("El km actual debe ser mayor o igual al del último servicio.");
+        targetInput.value = ((cur - last) / months).toFixed(0);
+      });
+    }
+  });
+
+  // Sugerencia rápida de intervalo
+  insertHelpAfter("svc-interval-km", {
+    summary: "¿No sabes el intervalo? Recomendación rápida",
+    html: `
+      <div class="flex flex-wrap gap-2">
+        <button data-val="5000"  class="px-2 py-1 rounded bg-white bg-opacity-10 hover:bg-opacity-20">5,000 km (uso severo)</button>
+        <button data-val="7500"  class="px-2 py-1 rounded bg-white bg-opacity-10 hover:bg-opacity-20">7,500 km</button>
+        <button data-val="10000" class="px-2 py-1 rounded bg-white bg-opacity-10 hover:bg-opacity-20">10,000 km (típico)</button>
+      </div>
+      <p class="text-xs text-gray-300 mt-2">Consulta tu manual para el valor exacto.</p>
+    `,
+    onMount: (root, targetInput) => {
+      root.querySelectorAll("button[data-val]").forEach(btn => {
+        btn.addEventListener("click", () => targetInput.value = btn.dataset.val);
+      });
+    }
+  });
+}
+
+/* ---------------- Batería ---------------- */
+function setupBateriaHelpers() {
+  // Microcopy
+  insertHelpAfter("bat-install", {
+    summary: "¿Cómo sé la fecha de instalación?",
+    html: `<p>En la batería suele haber <strong>etiqueta</strong> o <strong>estampado mes/año</strong>. Si no, usa la mini‑calc de abajo con la edad en meses.</p>`
+  });
+  insertHelpAfter("bat-type", {
+    summary: "¿Qué tipo de batería tengo?",
+    html: `<p><strong>Convencional</strong> (plomo‑ácido), <strong>AGM</strong> o <strong>EFB</strong>. Si no estás seguro, la mayoría de autos usan convencional.</p>`
+  });
+  insertHelpAfter("bat-usage", {
+    summary: "¿Cómo afecta mi uso?",
+    html: `<p>Trayectos <strong>cortos en ciudad</strong> descargan más (vida menor). Viajes <strong>largos en carretera</strong> cargan mejor.</p>`
+  });
+  insertHelpAfter("bat-climate", {
+    summary: "¿El clima influye?",
+    html: `<p><strong>Calor extremo</strong> y <strong>frío severo</strong> reducen la vida útil. Selecciona el que más se parezca a tu ciudad.</p>`
+  });
+
+  // Mini‑calc: edad → fecha
+  insertHelpAfter("bat-install", {
+    summary: "No recuerdo la fecha • Estimar desde la edad (meses)",
+    html: `
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <label class="block">Edad aproximada (meses)
+          <input id="h-bat-age" type="number" step="1" class="mt-1 w-full p-2 rounded bg-white bg-opacity-10" placeholder="24">
+        </label>
+        <button id="h-bat-apply" class="self-end p-2 rounded bg-blue-600 hover:bg-blue-500">Calcular fecha y usar</button>
+      </div>
+      <p class="text-xs text-gray-300">Tomamos la fecha de hoy y restamos la cantidad de meses.</p>
+    `,
+    onMount: (root, targetInput) => {
+      root.querySelector("#h-bat-apply").addEventListener("click", () => {
+        const months = parseNum(root.querySelector("#h-bat-age").value);
+        if (!(months >= 0)) return alert("Ingresa meses (0 o más).");
+        const d = new Date();
+        d.setMonth(d.getMonth() - Math.round(months));
+        const iso = d.toISOString().slice(0,10);
+        targetInput.value = iso;
+      });
+    }
+  });
+}
+
+
+/* ---------------- Autopartes ---------------- */
+function setupAutopartesHelpers() {
+  insertHelpAfter("parts-brand", {
+    summary: "¿Marca?",
+    html: `<p>La marca oficial del vehículo (p. ej., <strong>Toyota</strong>, <strong>Nissan</strong>, <strong>VW</strong>).</p>`
+  });
+  insertHelpAfter("parts-model", {
+    summary: "¿Modelo?",
+    html: `<p>El nombre comercial (p. ej., <strong>Corolla</strong>, <strong>Sentra</strong>, <strong>Jetta</strong>).</p>`
+  });
+  insertHelpAfter("parts-year", {
+    summary: "¿Año modelo?",
+    html: `<p>Puede diferir del año de fabricación. Está en la tarjeta de circulación o manual.</p>`
+  });
+  insertHelpAfter("parts-type", {
+    summary: "¿Tipo de pieza?",
+    html: `<p>Ejemplos: “<strong>balata delantera</strong>”, “<strong>filtro de aceite</strong>”, “<strong>bujía</strong>”. Si no sabes el nombre, describe el síntoma.</p>`
+  });
+}
+
+/* ---------------- Depreciación ---------------- */
+function setupDepreciacionHelpers() {
+  insertHelpAfter("dep-price", {
+    summary: "Precio de compra",
+    html: `<p>Incluye gastos si deseas un cálculo más realista. Un estimado es suficiente.</p>`
+  });
+  insertHelpAfter("dep-year", {
+    summary: "Año de compra",
+    html: `<p>El año en que adquiriste el auto.</p>`
+  });
+  insertHelpAfter("dep-km", {
+    summary: "Kilometraje actual",
+    html: `<p>El odómetro actual del auto.</p>`
+  });
+  insertHelpAfter("dep-condition", {
+    summary: "Estado",
+    html: `<p><strong>Excelente</strong>, <strong>Bueno</strong>, <strong>Regular</strong>, <strong>Malo</strong>. Afecta la retención de valor.</p>`
+  });
+  insertHelpAfter("dep-brand", {
+    summary: "Clase de marca",
+    html: `<p><strong>Premium</strong>, <strong>japonesa</strong>, <strong>americana</strong>, <strong>europea</strong> (no‑premium), <strong>coreana</strong>. Se usa para ajustar la depreciación.</p>`
+  });
+}
+</script>
+
+
+    <script src="assets/fallos.js"></script>
+    <script src="assets/calendar.js"></script>
+</body>
+</html>
